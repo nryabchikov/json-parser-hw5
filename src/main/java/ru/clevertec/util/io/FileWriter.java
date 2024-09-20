@@ -1,4 +1,4 @@
-package ru.clevertec.util;
+package ru.clevertec.util.io;
 
 import java.io.IOException;
 import java.io.Writer;
