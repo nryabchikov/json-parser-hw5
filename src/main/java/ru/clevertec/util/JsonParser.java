@@ -37,6 +37,7 @@ public class JsonParser {
                     sb.append(toJson(elem));
                     sb.append(CLOSING_FIGURE_BRACKET).append(COMMA);
                 }
+                sb.deleteCharAt(sb.length() - 1);
                 sb.append(CLOSING_SQUARE_BRACKET).append(COMMA);
             } else if (value instanceof Map<?, ?> map) {
                 sb.append(OPENING_FIGURE_BRACKET);
@@ -45,11 +46,13 @@ public class JsonParser {
                     sb.append(FORGING).append(entry.getKey().toString()).append(FORGING).append(COLON);
                     appendSimpleObject(sb, entry.getValue());
                 }
+                sb.deleteCharAt(sb.length() - 1);
                 sb.append(CLOSING_FIGURE_BRACKET).append(COMMA);
             } else {
                 appendSimpleObject(sb, value);
             }
         }
+        sb.deleteCharAt(sb.length() - 1);
         return sb;
     }
 
