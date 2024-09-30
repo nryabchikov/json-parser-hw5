@@ -16,12 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JsonParserTest {
-    private static JsonParser jsonParser;
+    private static JsonSerializer serializer;
+    private static JsonDeserializer deserializer;
     private static ObjectMapper objectMapper;
 
     @BeforeAll
     static void setUp() {
-        jsonParser = new JsonParser();
+        serializer = new JsonSerializer();
+        deserializer = new JsonDeserializer();
         objectMapper = JacksonConfig.objectMapper();
     }
 
@@ -29,7 +31,7 @@ class JsonParserTest {
     void shouldConvertProductToJson() throws IllegalAccessException, JsonProcessingException {
         //given
         Product product = DataGenerator.generateRandomProduct();
-        String jsonCustom = jsonParser.toJson(product).append("}").toString();
+        String jsonCustom = serializer.toJson(product).append("}").toString();
 
         //when
         String jsonJackson = objectMapper.writeValueAsString(product);
@@ -42,7 +44,7 @@ class JsonParserTest {
     void shouldConvertOrderToJson() throws IllegalAccessException, JsonProcessingException {
         //given
         Order order = DataGenerator.generateRandomOrder();
-        String jsonCustom = jsonParser.toJson(order).append("}").toString();
+        String jsonCustom = serializer.toJson(order).append("}").toString();
 
         //when
         String jsonJackson = objectMapper.writeValueAsString(order);
@@ -55,7 +57,7 @@ class JsonParserTest {
     void shouldConvertCustomerToJson() throws IllegalAccessException, JsonProcessingException {
         //given
         Customer customer = DataGenerator.generateRandomCustomer();
-        String jsonCustom = jsonParser.toJson(customer).append("}").toString();
+        String jsonCustom = serializer.toJson(customer).append("}").toString();
 
         //when
         String jsonJackson = objectMapper.writeValueAsString(customer);
@@ -71,7 +73,7 @@ class JsonParserTest {
         String json = objectMapper.writeValueAsString(product);
 
         //when
-        Product parsedProduct = jsonParser.fromJson(json, Product.class);
+        Product parsedProduct = deserializer.fromJson(json, Product.class);
 
         //then
         assertEquals(product, parsedProduct);
@@ -84,7 +86,7 @@ class JsonParserTest {
         String json = objectMapper.writeValueAsString(order);
 
         //when
-        Order parsedOrder = jsonParser.fromJson(json, Order.class);
+        Order parsedOrder = deserializer.fromJson(json, Order.class);
 
         //then
         assertEquals(order, parsedOrder);
@@ -97,7 +99,7 @@ class JsonParserTest {
         String json = objectMapper.writeValueAsString(customer);
 
         //when
-        Customer parsedCustomer = jsonParser.fromJson(json, Customer.class);
+        Customer parsedCustomer = deserializer.fromJson(json, Customer.class);
 
         //then
         assertEquals(customer, parsedCustomer);
@@ -112,7 +114,7 @@ class JsonParserTest {
         //when, then
         assertThrows(
                 DefaultConstructorNotFoundException.class,
-                () -> jsonParser.fromJson(json, UUID.class)
+                () -> deserializer.fromJson(json, UUID.class)
         );
     }
 }

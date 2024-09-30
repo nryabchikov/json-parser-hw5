@@ -2,10 +2,10 @@ package ru.clevertec.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import ru.clevertec.util.deserializer.LocalDateTimeDeserializer;
-import ru.clevertec.util.deserializer.OffsetDateTimeDeserializer;
-import ru.clevertec.util.serializer.LocalDateSerializer;
-import ru.clevertec.util.serializer.OffsetDateTimeSerializer;
+import ru.clevertec.util.jackson.deserializer.LocalDateTimeDeserializer;
+import ru.clevertec.util.jackson.deserializer.OffsetDateTimeDeserializer;
+import ru.clevertec.util.jackson.serializer.LocalDateSerializer;
+import ru.clevertec.util.jackson.serializer.OffsetDateTimeSerializer;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
